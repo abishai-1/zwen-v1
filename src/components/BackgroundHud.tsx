@@ -49,24 +49,24 @@ export const BackgroundHud: React.FC<BackgroundHudProps> = ({ progress = 0 }) =>
         ))}
       </div>
 
-      {/* Floating Ambient ZWEN Stamps */}
+      {/* Floating Ambient ZWEN Stamps (Positioned cleanly below header) */}
       {/* Top right "EST. 2026" stamp */}
-      <div className="absolute top-14 right-[25%] font-mono text-[11px] font-bold text-black/60 tracking-wider">
+      <div className="absolute top-24 right-[22%] font-mono text-[11px] font-bold text-black/60 tracking-wider">
         EST. 2026
       </div>
 
       {/* Top left system code */}
-      <div className="absolute top-16 left-[28%] font-mono text-[10px] text-black/50">
+      <div className="absolute top-24 left-[22%] font-mono text-[10px] text-black/50">
         ZWEN.SYS
       </div>
 
       {/* Bottom left "001" pill box */}
-      <div className="absolute bottom-10 left-[24%] bg-white/95 border border-black/20 shadow-sm px-3 py-0.5 rounded-[3px] font-mono text-[11px] font-bold text-black tracking-widest">
+      <div className="absolute bottom-12 left-[22%] bg-white/95 border border-black/20 shadow-sm px-3 py-0.5 rounded-[3px] font-mono text-[11px] font-bold text-black tracking-widest">
         001
       </div>
 
       {/* Bottom right "© ZWEN" stamp */}
-      <div className="absolute bottom-10 right-[28%] font-mono text-[11px] text-black/60 tracking-wider">
+      <div className="absolute bottom-12 right-[22%] font-mono text-[11px] text-black/60 tracking-wider">
         © ZWEN
       </div>
 
