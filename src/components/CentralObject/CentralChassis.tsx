@@ -1,21 +1,21 @@
 import React, { useMemo } from 'react';
-import { SectionData } from '../../types';
+import { HeroCardConfig } from '../../types';
 import { getInterpolatedShapes } from './MorphPathEngine';
 import { CentralImage } from './CentralImage';
 import { CentralTelemetry } from './CentralTelemetry';
 
 interface CentralChassisProps {
-  currentSection: SectionData;
+  currentCard: HeroCardConfig;
   progress: number;
 }
 
-export const CentralChassis: React.FC<CentralChassisProps> = ({ currentSection, progress }) => {
+export const CentralChassis: React.FC<CentralChassisProps> = ({ currentCard, progress }) => {
   // Compute outer and inner concentric polygon coordinates dynamically
   const { outerPolygon, innerClipPathCss } = useMemo(() => {
     return getInterpolatedShapes(progress);
   }, [progress]);
 
-  // Rotation: begins at 0deg (diamond orientation), smoothly rotates +30deg during scroll zoom
+  // Rotation: starts at 0deg (rhombus orientation), smoothly rotates +30deg during scroll zoom
   const rotation = progress * 30;
   const scale = 1.0 + progress * 0.28;
 
@@ -79,19 +79,19 @@ export const CentralChassis: React.FC<CentralChassisProps> = ({ currentSection, 
         </g>
       </svg>
 
-      {/* 2. Concentric Clipped Inner Topographic Viewport */}
+      {/* 2. Concentric Clipped Inner Viewport */}
       <div 
         className="absolute inset-0 z-10 overflow-hidden shadow-inner transition-all duration-75"
         style={{
           clipPath: innerClipPathCss,
         }}
       >
-        <CentralImage currentSection={currentSection} progress={progress} />
+        <CentralImage currentCard={currentCard} progress={progress} />
       </div>
 
-      {/* 3. Outer HUD Telemetry Overlays: Talon Badge, Telemetry, Radar, Dials */}
+      {/* 3. Outer HUD Telemetry Overlays: ZWEN CORE Badge, Telemetry, Radar, Dials */}
       <div className="absolute inset-0 z-20 pointer-events-none">
-        <CentralTelemetry currentSection={currentSection} progress={progress} />
+        <CentralTelemetry currentCard={currentCard} progress={progress} />
       </div>
     </div>
   );

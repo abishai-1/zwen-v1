@@ -16,16 +16,16 @@ export const BackgroundHud: React.FC<BackgroundHudProps> = ({ progress = 0 }) =>
         <div className="absolute top-1/2 left-0 right-0 h-[1px] bg-black/40 -translate-y-1/2" />
       </div>
 
-      {/* Top Ruler */}
+      {/* Top Ruler Header Bar */}
       <div className="absolute top-0 left-0 right-0 h-8 border-b border-black/10 flex items-center justify-between px-6 font-mono text-[10px] text-black/50">
         <div className="flex items-center space-x-6">
-          <span className="font-semibold tracking-wider text-black/70">SYS.LOC // 2026.09</span>
-          <span className="hidden md:inline">FREQ: 1420.405 MHz</span>
-          <span className="hidden md:inline">LATENCY: {(0.2 + progress * 0.1).toFixed(2)}ms</span>
+          <span className="font-bold tracking-wider text-black/80">ZWEN // CREATIVE TECHNOLOGY</span>
+          <span className="hidden md:inline">SYSTEM: 001 [ACTIVE]</span>
+          <span className="hidden md:inline">LATENCY: {(0.2 + progress * 0.05).toFixed(2)}ms</span>
         </div>
         <div className="flex items-center space-x-4">
           <span>PROGRESS: {Math.round(progress * 100)}%</span>
-          <span className="font-bold text-black/80">ZWEN / ARCHITECTURE</span>
+          <span className="font-bold text-black/80">DESIGN × CODE × EXPERIENCE</span>
         </div>
       </div>
 
@@ -34,7 +34,7 @@ export const BackgroundHud: React.FC<BackgroundHudProps> = ({ progress = 0 }) =>
         {Array.from({ length: 12 }).map((_, i) => (
           <div key={i} className="flex items-center w-full justify-between px-1">
             <span className="h-[1px] w-2 bg-black/30" />
-            <span className="text-[7px]">0{i}</span>
+            <span className="text-[7px]">0{i + 1}</span>
           </div>
         ))}
       </div>
@@ -49,25 +49,25 @@ export const BackgroundHud: React.FC<BackgroundHudProps> = ({ progress = 0 }) =>
         ))}
       </div>
 
-      {/* Floating Ambient Sci-Fi Stamps (Matching Reference Image) */}
-      {/* Top right "2019" stamp from reference */}
+      {/* Floating Ambient ZWEN Stamps */}
+      {/* Top right "EST. 2026" stamp */}
       <div className="absolute top-14 right-[25%] font-mono text-[11px] font-bold text-black/60 tracking-wider">
-        2019
+        EST. 2026
       </div>
 
-      {/* Top left tiny "ir" glyph */}
+      {/* Top left system code */}
       <div className="absolute top-16 left-[28%] font-mono text-[10px] text-black/50">
-        ir
+        ZWEN.SYS
       </div>
 
-      {/* Bottom left "128" pill box from reference */}
-      <div className="absolute bottom-10 left-[24%] bg-white/90 border border-black/20 shadow-sm px-3 py-0.5 rounded-[3px] font-mono text-[11px] font-bold text-black tracking-widest">
-        128
+      {/* Bottom left "001" pill box */}
+      <div className="absolute bottom-10 left-[24%] bg-white/95 border border-black/20 shadow-sm px-3 py-0.5 rounded-[3px] font-mono text-[11px] font-bold text-black tracking-widest">
+        001
       </div>
 
-      {/* Bottom right "@C" stamp from reference */}
+      {/* Bottom right "© ZWEN" stamp */}
       <div className="absolute bottom-10 right-[28%] font-mono text-[11px] text-black/60 tracking-wider">
-        @C
+        © ZWEN
       </div>
 
       {/* Corner crosshair anchors */}
