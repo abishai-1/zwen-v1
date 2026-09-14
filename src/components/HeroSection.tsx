@@ -10,7 +10,6 @@ import { TechCardCapabilities } from './Cards/TechCardCapabilities';
 import { TechCardWork } from './Cards/TechCardWork';
 import { CardConnectorLines } from './Cards/CardConnectorLines';
 import { Navigation } from './Navigation';
-import { TimelineControls } from './TimelineControls';
 import { sound } from '../utils/audio';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -30,8 +29,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigateSection }) =
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       const { innerWidth, innerHeight } = window;
-      const x = (e.clientX / innerWidth - 0.5) * 20;
-      const y = (e.clientY / innerHeight - 0.5) * 20;
+      const x = (e.clientX / innerWidth - 0.5) * 14;
+      const y = (e.clientY / innerHeight - 0.5) * 14;
       setMousePos({ x, y });
     };
 
@@ -47,7 +46,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigateSection }) =
       ScrollTrigger.create({
         trigger: containerRef.current,
         start: 'top top',
-        end: '+=2500', // 2500px of smooth pinned scroll journey
+        end: '+=2500',
         pin: heroPinRef.current,
         scrub: 0.8,
         anticipatePin: 1,
@@ -55,15 +54,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigateSection }) =
           const p = self.progress;
           setProgress(p);
 
-          // Update active card based on scroll progress
           if (p < 0.25) {
-            setActiveCardIndex(0); // 01 What We Do
+            setActiveCardIndex(0);
           } else if (p < 0.55) {
-            setActiveCardIndex(1); // 02 About ZWEN
+            setActiveCardIndex(1);
           } else if (p < 0.85) {
-            setActiveCardIndex(2); // 03 Capabilities
+            setActiveCardIndex(2);
           } else {
-            setActiveCardIndex(3); // 04 Our Work
+            setActiveCardIndex(3);
           }
         },
       });
@@ -72,25 +70,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigateSection }) =
     return () => ctx.revert();
   }, []);
 
-  // Compute active stage index (0: Rhombus, 1: Hexagon, 2: Aperture)
-  const activeStageIndex = progress < 0.35 ? 0 : progress < 0.7 ? 1 : 2;
   const currentCard = HERO_CARDS[activeCardIndex] || HERO_CARDS[0];
 
-  // Programmatic jump to a stage
-  const handleSelectStage = (stageIdx: number) => {
-    if (!containerRef.current) return;
-    const targetProgress = stageIdx === 0 ? 0.05 : stageIdx === 1 ? 0.45 : 0.88;
-    const scrollDistance = 2500;
-    const targetY = containerRef.current.offsetTop + targetProgress * scrollDistance;
-
-    window.scrollTo({
-      top: targetY,
-      behavior: 'smooth',
-    });
-    sound.playMorph();
-  };
-
   const handleCardClick = (cardIdx: number) => {
+    sound.playClick();
     setActiveCardIndex(cardIdx);
     const targetProgress = cardIdx === 0 ? 0.05 : cardIdx === 1 ? 0.45 : cardIdx === 2 ? 0.75 : 0.95;
     if (containerRef.current) {
@@ -104,29 +87,29 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigateSection }) =
   return (
     <div id="hero" ref={containerRef} className="relative w-full bg-[#B8BAB7]">
       {/* Pinned Hero Viewport (100vh) */}
-      <div 
-        ref={heroPinRef} 
+      <div
+        ref={heroPinRef}
         className="relative w-full h-screen overflow-hidden flex flex-col items-center justify-center select-none"
       >
-        {/* Ambient HUD Background, Rulers & Reference Stamps */}
+        {/* Ambient Halftone Background */}
         <BackgroundHud progress={progress} />
 
         {/* Top Minimal Navigation */}
         <Navigation onNavigateSection={onNavigateSection} />
 
-        {/* Dynamic Vector Guide Lines Linking Cards to Central Chassis */}
+        {/* Connector lines — very subtle */}
         <CardConnectorLines progress={progress} />
 
-        {/* Main Composition Stage with Subtle Mouse Parallax */}
-        <div 
-          className="relative w-full max-w-7xl h-full flex items-center justify-center p-4 md:p-8"
+        {/* Main Composition Stage with subtle mouse parallax */}
+        <div
+          className="relative w-full h-full flex items-center justify-center"
           style={{
-            transform: `translate(${mousePos.x * 0.4}px, ${mousePos.y * 0.4}px)`,
-            transition: 'transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1)',
+            transform: `translate(${mousePos.x * 0.3}px, ${mousePos.y * 0.3}px)`,
+            transition: 'transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1)',
           }}
         >
-          {/* Card 1: Top-Left (01 WHAT WE DO) */}
-          <div className="absolute top-[10%] left-[3%] lg:top-[12%] lg:left-[6%] z-20">
+          {/* Card 01: Top-Left — WHAT WE DO */}
+          <div className="absolute" style={{ top: '9%', left: '2%' }}>
             <TechCardWhatWeDo
               isActive={activeCardIndex === 0}
               onClick={() => handleCardClick(0)}
@@ -134,8 +117,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigateSection }) =
             />
           </div>
 
-          {/* Card 2: Top-Right (03 CAPABILITIES) */}
-          <div className="absolute top-[10%] right-[3%] lg:top-[12%] right-[6%] z-20">
+          {/* Card 03: Top-Right — CAPABILITIES */}
+          <div className="absolute" style={{ top: '9%', right: '2%' }}>
             <TechCardCapabilities
               isActive={activeCardIndex === 2}
               onClick={() => handleCardClick(2)}
@@ -143,16 +126,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigateSection }) =
             />
           </div>
 
-          {/* CENTRAL OBJECT: ZWEN CORE (Morphing SVG Chassis, Imagery & Telemetry HUD) */}
+          {/* CENTRAL OBJECT — dominant visual */}
           <div className="z-10 flex items-center justify-center">
-            <CentralChassis 
-              currentCard={currentCard} 
-              progress={progress} 
+            <CentralChassis
+              currentCard={currentCard}
+              progress={progress}
             />
           </div>
 
-          {/* Card 3: Bottom-Left (02 ABOUT ZWEN) */}
-          <div className="absolute bottom-[10%] left-[3%] lg:bottom-[12%] lg:left-[6%] z-20">
+          {/* Card 02: Bottom-Left — ABOUT ZWEN */}
+          <div className="absolute" style={{ bottom: '9%', left: '2%' }}>
             <TechCardAbout
               isActive={activeCardIndex === 1}
               onClick={() => handleCardClick(1)}
@@ -160,8 +143,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigateSection }) =
             />
           </div>
 
-          {/* Card 4: Bottom-Right (04 SELECTED WORK) */}
-          <div className="absolute bottom-[10%] right-[3%] lg:bottom-[12%] lg:right-[6%] z-20">
+          {/* Card 04: Bottom-Right — OUR WORK */}
+          <div className="absolute" style={{ bottom: '9%', right: '2%' }}>
             <TechCardWork
               isActive={activeCardIndex === 3}
               onClick={() => handleCardClick(3)}
@@ -170,15 +153,17 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigateSection }) =
           </div>
         </div>
 
-        {/* Interactive Bottom Timeline Controls */}
-        <TimelineControls 
-          progress={progress} 
-          activeStageIndex={activeStageIndex} 
-          onSelectStage={handleSelectStage} 
-        />
+        {/* Minimal scroll hint — bottom center, very quiet */}
+        <div
+          className="absolute bottom-7 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center space-y-1 pointer-events-none"
+          style={{ opacity: Math.max(0, 1 - progress * 5) }}
+        >
+          <span className="font-mono text-[8px] tracking-[0.3em] text-black/30 uppercase">scroll</span>
+          <div className="w-[1px] h-5 bg-black/20" />
+        </div>
       </div>
 
-      {/* Spacer to allow scroll length for the ScrollTrigger pinning */}
+      {/* Scroll spacer for ScrollTrigger pinning */}
       <div className="h-[2500px] pointer-events-none" />
     </div>
   );

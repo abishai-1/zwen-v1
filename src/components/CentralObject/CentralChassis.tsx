@@ -23,8 +23,8 @@ export const CentralChassis: React.FC<CentralChassisProps> = ({ currentCard, pro
     <div 
       className="relative flex items-center justify-center pointer-events-auto gpu-layer"
       style={{
-        width: 'min(82vw, 490px)',
-        height: 'min(82vw, 490px)',
+        width: 'min(72vw, 520px)',
+        height: 'min(72vw, 520px)',
         transform: `rotate(${rotation}deg) scale(${scale})`,
         transition: 'transform 0.05s linear',
       }}

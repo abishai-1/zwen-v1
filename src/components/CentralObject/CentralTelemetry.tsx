@@ -7,184 +7,99 @@ interface CentralTelemetryProps {
   progress: number;
 }
 
-export const CentralTelemetry: React.FC<CentralTelemetryProps> = ({ currentCard, progress }) => {
+export const CentralTelemetry: React.FC<CentralTelemetryProps> = ({ progress }) => {
   return (
     <div className="absolute inset-0 pointer-events-none select-none">
-      {/* 1. UPPER-LEFT DIAGONAL EDGE: ZWEN CORE Badge (Matching Reference Layout) */}
-      <div 
+
+      {/* 1. UPPER-LEFT DIAGONAL EDGE: ZWEN CORE identity badge */}
+      <div
         className="absolute z-20 transition-all duration-300 ease-out"
         style={{
           top: '12%',
           left: '1%',
-          transform: `translate(${progress * -15}px, ${progress * -10}px) rotate(-38deg)`,
+          transform: `translate(${progress * -12}px, ${progress * -8}px) rotate(-38deg)`,
         }}
       >
-        <div 
-          className="relative flex items-center bg-[#121316] text-white px-4 py-2 rounded-xs shadow-2xl border border-white/20"
-          style={{ clipPath: 'polygon(0 0, calc(100% - 14px) 0, 100% 100%, 0 100%)' }}
+        <div
+          className="relative flex items-center bg-[#121316] text-white px-3.5 py-1.5 shadow-2xl border border-white/20"
+          style={{ clipPath: 'polygon(0 0, calc(100% - 12px) 0, 100% 100%, 0 100%)' }}
         >
-          {/* Index prefix */}
-          <div className="flex items-baseline space-x-1 mr-2.5 pr-2.5 border-r border-white/30">
-            <span className="font-mono text-sm md:text-base font-extrabold text-white">00</span>
-            <span className="font-mono text-[8px] text-white/50">SYS</span>
+          {/* Index */}
+          <div className="flex items-baseline space-x-1 mr-2 pr-2 border-r border-white/25">
+            <span className="font-mono text-[11px] font-extrabold text-white">00</span>
+            <span className="font-mono text-[7px] text-white/40">SYS</span>
           </div>
 
           {/* Title */}
-          <div className="flex flex-col pr-4">
-            <span className="font-sans font-black text-sm md:text-base tracking-wider uppercase text-white leading-none">
-              ZWEN // CORE
+          <div className="flex flex-col pr-3">
+            <span className="font-sans font-black text-[12px] tracking-wider uppercase text-white leading-none">
+              ZWEN / CORE
             </span>
-            <span className="font-mono text-[7px] text-white/60 tracking-widest mt-0.5 uppercase">
+            <span className="font-mono text-[6px] text-white/50 tracking-widest mt-0.5 uppercase">
               CREATIVE TECHNOLOGY
             </span>
           </div>
 
-          {/* Diagonal hash pattern accent on right edge */}
-          <div className="w-5 h-5 pattern-stripes-dark opacity-60 mr-1" />
+          {/* Hash accent */}
+          <div className="w-4 h-4 pattern-stripes-dark opacity-50" />
         </div>
       </div>
 
-      {/* 2. TOP CORNER / OCULAR RADAR: ZWEN Sensor Viewport */}
-      <div 
+      {/* 2. TOP: Ocular radar circle */}
+      <div
         className="absolute z-20 flex flex-col items-center transition-all duration-300"
         style={{
           top: '-4%',
           right: '34%',
-          transform: `translate(${progress * 15}px, ${progress * -8}px) rotate(${progress * 60}deg)`,
+          transform: `translate(${progress * 12}px, ${progress * -6}px) rotate(${progress * 60}deg)`,
         }}
       >
-        <div className="relative w-13 h-13 md:w-15 md:h-15 rounded-full bg-[#121316] p-1 shadow-2xl border-2 border-white/80 flex items-center justify-center">
-          {/* Degree/Angle Stamp */}
-          <span className="absolute -top-3.5 right-0 font-mono text-[8px] font-bold text-black bg-white px-1 rounded shadow-xs">
+        <div className="relative w-12 h-12 rounded-full bg-[#121316] p-[2px] shadow-2xl border-2 border-white/80 flex items-center justify-center">
+          {/* Degree stamp */}
+          <span className="absolute -top-3 right-0 font-mono text-[8px] font-bold text-black bg-white px-1 rounded shadow-xs">
             {HERO_TELEMETRY.bearing}°
           </span>
 
-          {/* Inner Mini Lens View */}
-          <div className="w-full h-full rounded-full overflow-hidden relative border border-white/40">
-            <img 
-              src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=300&auto=format&fit=crop" 
+          {/* Inner mini lens */}
+          <div className="w-full h-full rounded-full overflow-hidden relative border border-white/30">
+            <img
+              src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=300&auto=format&fit=crop"
               alt="sensor lens"
               className="w-full h-full object-cover filter brightness-110 contrast-125"
             />
-            {/* Ocular reticle */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-2 h-2 rounded-full border border-cyan-400 animate-ping" />
-              <div className="w-full h-[0.5px] bg-cyan-400/70 absolute" />
-              <div className="h-full w-[0.5px] bg-cyan-400/70 absolute" />
+              <div className="w-full h-[0.5px] bg-white/60 absolute" />
+              <div className="h-full w-[0.5px] bg-white/60 absolute" />
+              <div className="w-1.5 h-1.5 rounded-full border border-white/80" />
             </div>
           </div>
 
-          {/* Outer Mechanical Tick Arc */}
-          <svg className="absolute -inset-2 w-[calc(100%+16px)] h-[calc(100%+16px)] pointer-events-none animate-spin" style={{ animationDuration: '40s' }} viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" strokeWidth="1.5" strokeDasharray="4 6" className="text-black/60" />
+          {/* Spinning tick arc */}
+          <svg
+            className="absolute pointer-events-none animate-spin"
+            style={{ inset: '-8px', width: 'calc(100% + 16px)', height: 'calc(100% + 16px)', animationDuration: '40s' }}
+            viewBox="0 0 100 100"
+          >
+            <circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" strokeWidth="1.2" strokeDasharray="4 6" className="text-black/55" />
           </svg>
         </div>
       </div>
 
-      {/* 3. CENTER-RIGHT WATERMARK: "ZWEN" */}
-      <div 
-        className="absolute right-6 top-1/2 -translate-y-1/2 font-tech font-bold text-4xl md:text-5xl text-black/15 tracking-widest pointer-events-none z-10"
-        style={{
-          transform: `translateY(-50%) scale(${1 + progress * 0.15})`,
-        }}
-      >
-        ZWEN
-      </div>
-
-      {/* 4. CENTER-LEFT: Coordinates Tag */}
-      <div 
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 flex items-center space-x-1.5 bg-[#121316] text-white px-2.5 py-1 rounded shadow-md font-mono text-[8px]"
-        style={{
-          transform: `translateY(-50%) translate(${progress * -8}px, 0)`,
-        }}
-      >
-        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-        <span className="font-semibold">{HERO_TELEMETRY.coordinates}</span>
-      </div>
-
-      {/* 5. LOWER-LEFT DIAGONAL: ZWEN System Performance & Capabilities Telemetry */}
-      <div 
-        className="absolute z-20 flex flex-col space-y-1.5 transition-all duration-300"
-        style={{
-          bottom: '12%',
-          left: '0%',
-          transform: `translate(${progress * -15}px, ${progress * 15}px) rotate(-38deg)`,
-        }}
-      >
-        {/* Active Node Indicator */}
-        <div className="flex items-center space-x-2 bg-white/95 backdrop-blur-md px-2.5 py-0.5 rounded shadow border border-black/15 self-start">
-          <span className="font-mono text-[9px] font-bold text-black">NODE // {currentCard.number}</span>
-          <div className="flex items-center space-x-1 text-black/80">
-            <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="font-mono text-[8px] font-bold">{HERO_TELEMETRY.status}</span>
-          </div>
-        </div>
-
-        {/* Stepped Trapezoid Telemetry Bars */}
-        <div 
-          className="bg-[#121316] text-white p-2.5 rounded-xs shadow-2xl border border-white/20 text-[8px] font-mono w-44 md:w-50"
-          style={{ clipPath: 'polygon(0 0, 100% 0, 88% 100%, 0 100%)' }}
-        >
-          <div className="space-y-1 pr-3">
-            <div className="flex items-center justify-between">
-              <span className="text-white/70">Design Precision</span>
-              <div className="flex items-center space-x-1.5">
-                <div className="w-14 h-1 bg-white/20 rounded-xs overflow-hidden">
-                  <div className="h-full bg-cyan-400 rounded-xs" style={{ width: '100%' }} />
-                </div>
-                <span className="font-bold">100%</span>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between">
-              <span className="text-white/70">Computational Arch</span>
-              <div className="flex items-center space-x-1.5">
-                <div className="w-14 h-1 bg-white/20 rounded-xs overflow-hidden">
-                  <div className="h-full bg-cyan-400 rounded-xs" style={{ width: '95%' }} />
-                </div>
-                <span className="font-bold">60FPS</span>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between">
-              <span className="text-white/70">Interaction Depth</span>
-              <div className="flex items-center space-x-1.5">
-                <div className="w-14 h-1 bg-white/20 rounded-xs overflow-hidden">
-                  <div className="h-full bg-cyan-400 rounded-xs" style={{ width: '92%' }} />
-                </div>
-                <span className="font-bold">16BIT</span>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between">
-              <span className="text-white/70">Creative Vector</span>
-              <div className="flex items-center space-x-1.5">
-                <div className="w-14 h-1 bg-white/20 rounded-xs overflow-hidden">
-                  <div className="h-full bg-cyan-400 rounded-xs" style={{ width: '100%' }} />
-                </div>
-                <span className="font-bold">1.0</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* 6. BOTTOM CORNER: Concentric Mechanical Rotary Dial */}
-      <div 
+      {/* 3. Bottom rotary dial — subtle mechanical detail */}
+      <div
         className="absolute z-20 transition-all duration-300"
         style={{
           bottom: '-3%',
           right: '34%',
-          transform: `translate(${progress * 15}px, ${progress * 12}px) rotate(${progress * -90}deg)`,
+          transform: `translate(${progress * 12}px, ${progress * 10}px) rotate(${progress * -90}deg)`,
         }}
       >
-        <div className="w-11 h-11 md:w-13 md:h-13 rounded-full bg-[#121316] border-2 border-white/80 shadow-2xl flex items-center justify-center p-0.5 relative">
-          <div className="w-full h-full rounded-full border border-dashed border-white/60 flex items-center justify-center">
+        <div className="w-10 h-10 rounded-full bg-[#121316] border-2 border-white/75 shadow-xl flex items-center justify-center p-0.5 relative">
+          <div className="w-full h-full rounded-full border border-dashed border-white/55 flex items-center justify-center">
             <div className="w-2.5 h-2.5 rounded-full bg-white flex items-center justify-center">
               <div className="w-1 h-1 bg-black rounded-full" />
             </div>
           </div>
-          {/* Radial notch lines */}
           <div className="absolute top-0 w-[1.5px] h-1.5 bg-white" />
           <div className="absolute bottom-0 w-[1.5px] h-1.5 bg-white" />
           <div className="absolute left-0 h-[1.5px] w-1.5 bg-white" />
@@ -192,15 +107,27 @@ export const CentralTelemetry: React.FC<CentralTelemetryProps> = ({ currentCard,
         </div>
       </div>
 
-      {/* 7. Perimeter Fasteners */}
-      <div className="absolute bottom-10 right-10 flex items-center space-x-1.5 opacity-60">
-        <span className="w-1.5 h-1.5 rounded-full border border-black flex items-center justify-center text-[5px]">×</span>
-        <span className="w-1.5 h-1.5 rounded-full border border-black flex items-center justify-center text-[5px]">×</span>
-        <span className="w-1.5 h-1.5 rounded-full border border-black flex items-center justify-center text-[5px]">×</span>
+      {/* 4. Faint watermark ZWEN on right interior */}
+      <div
+        className="absolute right-5 top-1/2 font-mono font-black tracking-widest pointer-events-none z-10 select-none"
+        style={{
+          color: 'rgba(18,19,22,0.09)',
+          fontSize: 'clamp(1.8rem, 4vw, 2.8rem)',
+          transform: `translateY(-50%) scale(${1 + progress * 0.1})`,
+        }}
+      >
+        ZWEN
       </div>
 
-      {/* Diagonal hash vents on upper-right perimeter */}
-      <div className="absolute top-10 right-8 w-10 h-3 pattern-stripes opacity-40 rotate-45" />
+      {/* 5. Perimeter corner fasteners — very subtle */}
+      <div className="absolute top-8 right-10 flex items-center space-x-1 opacity-45">
+        <span className="w-[4px] h-[4px] rounded-full border border-black flex items-center justify-center text-[4px] font-bold">×</span>
+        <span className="w-[4px] h-[4px] rounded-full border border-black flex items-center justify-center text-[4px] font-bold">×</span>
+        <span className="w-[4px] h-[4px] rounded-full border border-black flex items-center justify-center text-[4px] font-bold">×</span>
+      </div>
+
+      {/* 6. Tiny vent stripes upper-right */}
+      <div className="absolute top-9 right-7 w-8 h-2.5 pattern-stripes opacity-30 rotate-45" />
     </div>
   );
 };
