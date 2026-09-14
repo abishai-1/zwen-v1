@@ -2,7 +2,7 @@
 
 @layer base {
   :root {
-    --bg-color: #b8bab7;
+    --bg-color: #EAEBE7;
     --text-color: #121316;
   }
 
@@ -21,7 +21,7 @@
     width: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: #a8aaa7;
+    background: #d8dad5;
   }
   ::-webkit-scrollbar-thumb {
     background: #121316;
